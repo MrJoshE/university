@@ -2,7 +2,7 @@
 
 - Job *j* starts at time $s_j$and finishes at $f_j$
 - Two jobs are **compatible** if they don't overlap
-- Goal: find **maximum size subset of mutially compatible jobs**
+- Goal: find **maximum size subset of mutually compatible jobs**
 
 
 
