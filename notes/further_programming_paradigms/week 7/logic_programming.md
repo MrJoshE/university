@@ -25,3 +25,4 @@ Where'as this isn't: 1, 2, 1, 8, **2**, 4, **2**
 ##### Summary
 
 - Logical programming has a foundation in formal math
+
