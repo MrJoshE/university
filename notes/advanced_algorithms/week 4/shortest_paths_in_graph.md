@@ -24,3 +24,12 @@
 
    
 
+##### Dijkstra's Algorithm: Proof of Correctness
+
+Theorem: For each node u in S, d(u) is the length of shortest s-u path
+
+Proof (by induction on |s|)
+
+- Base case |S| = 1 is trivial
+- Induction Hypothesis: Assume true for |S| = k >= 1
+
