@@ -75,7 +75,7 @@ Compound terms are made up of a functor (a Prolog Atom) and a number of argument
 
 Examples below are all valid functors:
 
-```
+```Prolog
 is_bigger(horse, X), f( g(X,_), 7), 'My Functor'(dog)
 ```
 
@@ -83,7 +83,7 @@ In Prolog, the word functor is used to refer to the atom at the start of a struc
 
 For example:
 
-```
+```Prolog
 likes(mary, pizza)
 likes/2 is the functor
 ```
@@ -98,19 +98,19 @@ The whole definition can be expressed within 2 rules. Rule 1: Will define the di
 
 Rule 1:
 
-```
+```Prolog
 predecessor(X,Y):-parent(X,Y).
 ```
 
 Rule 2:
 
-```
+```Prolog
 predecessor(X,Z):-parent(X,Y),parent(Y,Z).
 ```
 
 Test:
 
-```
+```Prolog
 // rules.pl
 
 parent(10,5).
@@ -128,7 +128,7 @@ sicstus
 
 SISCtus:
 
-```
+```Prolog
 consult(‘rules.pl’).
 predecessor(10,4).
 predecessor(10,5).
@@ -137,10 +137,10 @@ predecessor(4,10).
 
 Output:
 
-```
-yes
-yes
-yes
-no
+```Prolog
+Yes
+Yes
+Yes
+No
 ```
 
