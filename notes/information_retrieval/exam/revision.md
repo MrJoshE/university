@@ -271,7 +271,7 @@
     - Memory - this can be treated as a large matrix
 
 
-  
+
 
 ## Week 8
 
@@ -373,26 +373,26 @@
   - Formal concepts for good database design: functional dependencies
   - Normalisation: 1NF, 2NF, 3NF, higher NF
 
-  ```
-  Informal terms 														Formal terms
-  (for users)																(for specialists/theorists)
-  
-  Table                           					Relation
-  
-  Column                          					Attribute (Field)
-  
-  All possible column values                Domain
-  
-  Row                           						Tuple (Record)
-  
-  Number of columns                         Degree of a relation
-  
-  Number of rows                          	Cardinality of a relation instance
-  
-  Table definition                          Relation schema
-  
-  Populated table                           Relation instance
-  ```
+    ```
+    Informal terms 														Formal terms
+    (for users)																(for specialists/theorists)
+    
+    Table                           					Relation
+    
+    Column                          					Attribute (Field)
+    
+    All possible column values                Domain
+    
+    Row                           						Tuple (Record)
+    
+    Number of columns                         Degree of a relation
+    
+    Number of rows                          	Cardinality of a relation instance
+    
+    Table definition                          Relation schema
+    
+    Populated table                           Relation instance
+    ```
 
 - Recal ISO 1179
   - A **data element** results when associating a representation to a **data element** concept (DEC)
@@ -408,20 +408,20 @@
   - A primary key can be a composite key, as can a foreign key
   - A foreign key can be part of a composite primary key
 
-  ```
-  Four relations:
-  
-  CUSTOMER(Customer_ID, Customer_Name, Address, City, State, Zip)
-  ORDER(Order_ID, Order_Date, Customer_ID*)
-  ORDER_LINE(Order_ID*, Product_ID*, Quantity)
-  PRODUCT(Product_ID, Product_Description, Product_Finish,Standard_Price, On_Hand)
-  
-  Customer_ID is a foreign key in the ORDER relation that implements a 1:N relationship between customer and order.
-  
-  The primary key for ORDER_LINE is a composite primary key consisting of the attributes Order_ID and Product_ID that uniquely identifies the order line
-  
-  Order_ID and Product_ID in ORDER_LINE are, individually, foreign keys for an M:N relationship (order and product).
-  ```
+    ```
+    Four relations:
+    
+    CUSTOMER(Customer_ID, Customer_Name, Address, City, State, Zip)
+    ORDER(Order_ID, Order_Date, Customer_ID*)
+    ORDER_LINE(Order_ID*, Product_ID*, Quantity)
+    PRODUCT(Product_ID, Product_Description, Product_Finish,Standard_Price, On_Hand)
+    
+    Customer_ID is a foreign key in the ORDER relation that implements a 1:N relationship between customer and order.
+    
+    The primary key for ORDER_LINE is a composite primary key consisting of the attributes Order_ID and Product_ID that uniquely identifies the order line
+    
+    Order_ID and Product_ID in ORDER_LINE are, individually, foreign keys for an M:N relationship (order and product).
+    ```
 
 - Redundancy and update anomalies
   - Avoid problems by:
