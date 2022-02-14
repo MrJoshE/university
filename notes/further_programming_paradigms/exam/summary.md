@@ -391,7 +391,6 @@
   ```
 
 
-<<<<<<< HEAD
 - Representation independence property
 
   - Two correct implementations of a single specification of an ADT are observationally indistinguishable by the clients of these types.
@@ -488,7 +487,5 @@
 
 
 - Lambda of a function reverses the calling order.
-=======
->>>>>>> 278936bf27b9b4f49fcb2625809132a87dd64460
 
 ## Week 9
