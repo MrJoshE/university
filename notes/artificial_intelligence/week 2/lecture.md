@@ -1,4 +1,4 @@
-# Week 2
+#  Week 2
 
 
 
@@ -144,5 +144,165 @@ def step_gradient(b_current, m_current, points, learning_rate):
 
 - $\theta$ is the model's parameter vector, containing the bias term $\theta_0$ and the feature weights $\theta_0$ to $\theta_n$
 - $\theta^T$ is the transpose of $\theta$ (a row vector instead of a column vector)
-- 
+- X is the instance's feature vector, containing $x_0$ and $x_n$ , with $x_0$, always equalt o 1
+- $\theta^T \dotproduct x$ is the dot product of $\theta^T$ and x
+- $h_0$ is the hypothesis function, using the model parameters $\theta$
+
+
+
+#### Linear Regression - How to train it?
+
+- Training a model means setting its parameters so that the model best fits the training set
+- First need to measure how well the model fits the training data.
+- Mean Square Error (MSE)
+- ![Screenshot 2022-02-16 at 20.06.26](lecture/Screenshot 2022-02-16 at 20.06.26.png)
+- m is the number of instances in the dataset
+- The more common performance measure of a regression model is the error function used earlier
+
+
+
+#### The Normal Equation
+
+- To find the value of $\theta$ that minimises the cost function, there is a *closed-form solution* - in other words, a mathematical equation that gives the result directly. This is called the *Normal Equation*
+
+![Screenshot 2022-02-16 at 20.08.21](lecture/Screenshot 2022-02-16 at 20.08.21.png)
+
+#### Gradient Decent
+
+- GD is a generic optimization algorithm capable of finding optimal solutions to a wide range of problems
+- The general idea of GD is to tweak parameters iteratively in order to minimize a cost function
+- It measures the local gradient of the error function with regards to the parameter vector $\theta$, and it goes in the direction of descending gradient.
+- Once the gradient is zero, you have reached a minimum 
+
+![Screenshot 2022-02-16 at 20.11.51](lecture/Screenshot 2022-02-16 at 20.11.51.png)
+
+
+
+#### Process:
+
+- Start with random $\theta$
+- take one baby step at a time, each step attempting to decrease the cost function 
+- until the algorithm *converges* to a minimum
+
+
+
+#### Gradient Decent - learning rate
+
+- if the learning rate is too small, then the algorithm will have to go through many iterations to converge.
+- If th elearning rate is too high, you might jump across the valley and end up on the other side, possibly even higher up than you were before
+  - This might make the algorithm diverge, with larger and larger values, failing to find a good solution
+
+
+
+#### Batch Gradient Decent
+
+- To implement Gradient Decent, we need to calculate how much the cost function will change if we change $\theta_j$ just a little bit. This is called a partial derivative.
+- ![Screenshot 2022-02-16 at 20.14.36](lecture/Screenshot 2022-02-16 at 20.14.36.png)
+- ![Screenshot 2022-02-16 at 20.15.09](lecture/Screenshot 2022-02-16 at 20.15.09.png)
+
+
+
+
+
+#### Stochastic Gradient Descent 
+
+- Stochastic Gradient Descent picks a random instance in the training set at every step and computes the gradients based only on that single instance. - fast
+- Irregular: instead of gently decreasing until it reaches the minimum, the cost function will bounce up and down, decreasing only on average.
+- When the cost function is very irregular, this can actually help the algorithm jump out of a local minima so Stochastic Gradient Descent has a better chance of finding the global minimum that Batch Gradient does
+
+
+
+#### Mini-batch Gradient Descent
+
+- At each step, computes the gradients on small random sets of instances called *mini-batches*
+- The main advantages of Mini-batch GD over Stochastic GD is that you get a performance boost from hardware optimization of matrix operations, especially when using GPUs
+- The algorithm's progress in parameter space is less erratic than with Stochastic GD, especially with farily large mini batches.
+
+![Screenshot 2022-02-16 at 20.24.04](lecture/Screenshot 2022-02-16 at 20.24.04.png)
+
+#### ![Screenshot 2022-02-16 at 20.24.14](lecture/Screenshot 2022-02-16 at 20.24.14.png)
+
+
+
+## Polynomial Regression
+
+- What if your data is more complex than a straight line? Surprisingly, you can use a linear model to fit nonlinear data. A simple way to do this is to add powers of each feature as new features, then train a linear model on this extended set of features. This technquie is called *Polynomial Regression*
+
+![Screenshot 2022-02-16 at 20.26.41](lecture/Screenshot 2022-02-16 at 20.26.41.png)
+
+#### Learning Curves
+
+If you perform high-degree Polynomial Regression, you will likely fit the training data much better than with plain Linear Regression. Figure below applies a 300 degree polynomial model to the preceeding training data, and compares the result with a pure linear model and a quadratic model.
+
+![Screenshot 2022-02-22 at 16.56.03](lecture/Screenshot 2022-02-22 at 16.56.03.png)
+
+#### The Bias / Variance Trade-off
+
+- Bais: This part of the generalization error is due to wrong assumptions, such as assuming that the data is linear when it is actually quadratic. A high-bias model is most likely to underfit the training data.
+- Variance: This is part due to the models excessive sensitivity to small variations in the training data. A model with many degrees of freedom (such as high-degree polynomial model) is likely to have high variance and thus overfit the training data.
+- Irreducible error: This part is due to the noisiness of the data itself. The only way to reduce this part of the error is to clean up the data (fix the data sources, such as broken sensors or detect and remove outliers)
+- **Increasing a model's complexity will typically increase its variance and reduce its bias.**
+- **Conversely, reducing a model's complexity increases its bias and reduces its variance.** This is why its called a trade-off
+
+
+
+#### Addressing Overfitting:
+
+**Options**:
+
+1. Reduce number of features:
+   - Manually select which features to keep.
+   - Model selection algorithm.
+2. Regularization.
+   1. Keep all the features, but reduce magnitude / values of parameters
+   2. Works well when we have a lot of features, each of which contrivutes a bit to predicting $y$
+
+
+
+#### Regularized Linear Models
+
+- A good way to reduce overfitting is to regularize the model (to constrain it): the fewer degrees of freedom it has, the harder it will be for it to overfit the data.
+
+  - A simple way to regularize a polynomial model is to reduce the number of polynomial degrees.
+
+- For a linear model, regularization is typically achieved by constraining the weights of the model.
+
+  ![Screenshot 2022-02-22 at 17.44.57](lecture/Screenshot 2022-02-22 at 17.44.57.png)
+
+
+
+- A very differnet way to regularize iterative learning algorithms such as Gradient Descent is to stop training as soon as the validation error reaches a minimum.
+- As the epochs go by the algorithm learns, and its prediction error (RMSE) on the training set goes down, along with its prediction error on the validation set.
+- After a while, the validation error stops decreasing and starts to go back up. This indicates that the model has started to overfit the training data.
+- You just stop training as soon as the validation error reaches the minimum.
+
+
+
+## Logistic Regresssion 
+
+
+
+#### Classification
+
+Email: Spam / Not Spam ?
+
+Online Transactions: Fraudulent (Yes / No) ? 
+
+Tumor: Malignant / Benign
+
+![Screenshot 2022-02-22 at 17.49.52](lecture/Screenshot 2022-02-22 at 17.49.52.png)
+
+
+
+- The output for linear regression is a number that has its real meaning
+- The output for a logistic regression is a number that represents the probability of the event happening
+- Logisitc Regression (also called Logit Regression) is commonly used to estimate the probability that an instance belongs to a particular class.
+
+![Screenshot 2022-02-22 at 17.51.40](lecture/Screenshot 2022-02-22 at 17.51.40.png)
+
+![Screenshot 2022-02-22 at 17.52.27](lecture/Screenshot 2022-02-22 at 17.52.27.png)
+
+
+
+
 

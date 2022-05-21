@@ -2,7 +2,7 @@
 
 
 
-## Overview
+## Principles of network applications
 
 #### Goals:
 
@@ -109,3 +109,90 @@
 
 
 #### Securing TCP
+
+**Vanilla TCP & UDP sockets:**
+
+- No encryption
+- clear text passwords sent into socket traverse internet
+
+**Transport Layer Security (TLS)**
+
+- Provides encrypted TCP connections
+- data integrity
+- End-point authentication
+
+**TSL implemented in application layer**
+
+- apps use TLS libraries, that use TCP in turn
+
+**TLS socket API**
+
+- cleartext sent into socket traverse internet *encrypted*
+
+
+
+## Web and HTTP (Part 1)
+
+
+
+
+
+#### HTTP overview
+
+- Web's application layer protocol
+- Client / server model:
+  - client: browser that requests, recieves (using HTTP protocol) and displays Web objects
+  - Server: Web server sends (using HTTP protocol) objects in response to requests
+
+**HTTP uses TCP:**
+
+- Client initiates TCP conection (creates socket) to server, port 80
+- Server accepts TCP connection from client
+- HTTP messages (application-layer protocol messages) exchanged between browsers (HTTP client) and web server (HTTP server)
+- TCP conncetion closed.
+
+**HTTP is 'stateless'**
+
+- server maintains no information about past client requests
+
+
+
+#### HTTP connections
+
+**Non-persistent HTTP**
+
+1. TCP connection opened
+2. At most one object sent over TCP connection
+3. TCP connection closed
+
+**Persistent HTTP**
+
+- TCP connection opened to a server
+- multiple objects can be sent over single TCP connection between client and that server
+- TCP connection closed
+
+
+
+#### **Non-persistent HTTP Example**
+
+1. HTTP client initiates TCP connection to HTTP server at www.josh.com on port 80
+2. HTTP server at host www.josh.com waiting for TCP connection at port 80 'accepts' connection, notifiying client
+3. HTTP client sends HTTP request message (containing URL) into TCP connection socket. Message indicates that the client wants object someSubdomain/home.index
+4. HTTP server recieves request message, forms *response message* containing requested object, and sends message into its socket.
+5. HTTP server closes TCP connection.
+6. HTTP client recieves response message containing HTML file, displays HTML. Parsing HTML file, shows the contents in the browser.
+
+
+
+#### **RTT (definiton)**:
+
+- time for a small packet to travel fro client to server and back.
+
+#### **HTTP response time (per object)**:
+
+- one RTT to initiate TCP connectiojn
+- one RTT for HTTP request and first few bytes of HTTP response to return
+- Object/file transmission time
+
+
+
