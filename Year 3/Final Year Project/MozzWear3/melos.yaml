@@ -1,0 +1,64 @@
+name: houston
+
+packages:
+  - packages/**
+
+ignore:
+  - flutter_gen
+
+ide:
+  intellij:
+    true
+  vscode:
+    true
+
+
+scripts:
+
+  init:mac:
+    run: melos run get && melos run environment:dev:mac && melos run localize:mac && melos run generate:mac
+    description: Build all generated files for Dart & Flutter packages in this project on a Mac machine.
+
+  get:
+    run: melos exec -c 1 --flutter -- "flutter pub get"
+    description: "Resolve all dependencies in this project"
+
+  get:fresh:
+    run: melos run deep:clean && melos run get
+
+  deep:clean:
+    run: melos exec -c 1 rm pubspec.lock
+
+  localize:mac:
+    run: melos exec -c 1 --dir-exists="lib/localization" --flutter -- exec "flutter pub run intl_utils:generate"
+    description: Generates localization classes in the supported packages of this project.
+
+  generate:mac:
+    run: melos exec -c 1 --depends-on="build_runner" --flutter -- exec "flutter pub run build_runner build --delete-conflicting-outputs"
+    description: Build all generated files for Flutter packages in this project.
+
+  analyze:
+    run: melos exec -c 1  --ignore="core_abstracts" -- dart analyze . --fatal-infos
+    description: Run dart analyze in all packages.
+
+  test:
+    run: melos exec -c 1 --fail-fast --dir-exists="test" --flutter -- "flutter test --coverage"
+    description: Run Flutter tests for all packages in this project.
+
+  environment:ci:
+    run: melos exec -c 1 --depends-on="environment_config" --flutter -- exec "flutter pub run environment_config:generate"
+    description: Generate the environment configuration class and environment file.
+
+  environment:dev:mac:
+    run: melos exec -c 1 --depends-on="environment_config" --flutter -- exec "flutter pub run environment_config:generate --dev"
+    description: Generate the development environment configuration class and environment file.
+
+  environment:tst:mac:
+    run: melos exec -c 1 --depends-on="environment_config" --flutter -- exec "flutter pub run environment_config:generate --config-extension=tst"
+    description: Generate the development environment configuration class and environment file.
+
+
+  environment:prod:mac:
+    run: melos exec -c 1 --depends-on="environment_config" --flutter -- exec "flutter pub run environment_config:generate --config-extension=prod"
+    description: Generate the development environment configuration class and environment file.
+

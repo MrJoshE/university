@@ -1,0 +1,46 @@
+name: mozzwear
+description: Entry of the MozzWear application.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.0-139.0.dev <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  core_view:
+    path:
+      ../core_view
+  core_abstracts:
+    path:
+      ../core_abstracts
+  core_state:
+    path:
+      ../core_state
+
+  logging: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_launcher_icons: ^0.10.0
+  # Code generators
+  build_runner: ^2.3.0
+
+  # Linting
+  lint: ^1.10.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/ic_launcher.png"
+  min_sdk_android: 11 # android min sdk min:16, default 21
+
+flutter:
+
+  uses-material-design: true
